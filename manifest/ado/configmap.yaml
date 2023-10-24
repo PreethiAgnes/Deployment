@@ -10,3 +10,9 @@ spec:
     - name: otel
       port: 55680
       targetPort: 4317  # The collector container's port
+      env:
+      - name: OTEL_CONFIG
+        valueFrom:
+          configMapKeyRef:
+            name: otel-collector-config
+            key: config.yaml

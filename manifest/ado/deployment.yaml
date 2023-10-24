@@ -17,3 +17,9 @@ spec:
           image: preethiagnes/ado:20231024.46
           ports:
             - containerPort: 80  # Adjust the container port as needed
+          env:
+            - name: OTEL_CONFIG
+              valueFrom:
+                configMapKeyRef:
+                  name: otel-collector-config
+                  key: config.yaml

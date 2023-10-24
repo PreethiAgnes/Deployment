@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: otel-config
+  name: otel-collector-config
   namespace: argocd
 data:
   otel.yaml: |

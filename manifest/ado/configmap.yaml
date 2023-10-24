@@ -1,18 +1,21 @@
 apiVersion: v1
-kind: Service
+kind: ConfigMap
 metadata:
-  name: otel-collector-service
-  namespace: argocd  # Use the appropriate namespace
-spec:
-  selector:
-    app: otel-collector
-  ports:
-    - name: otel
-      port: 55680
-      targetPort: 4317  # The collector container's port
-      env:
-      - name: OTEL_CONFIG
-        valueFrom:
-          configMapKeyRef:
-            name: otel-collector-config
-            key: config.yaml
+  name: otel-config
+  namespace: argocd
+data:
+  otel.yaml: |
+    receivers:
+      otlp:
+        endpoint: "0.0.0.0:55680"
+    processors:
+      batch:
+    exporters:
+      otlp/argocd:
+        endpoint: "argocd-opentelemetry-collector:55680"
+    service:
+      pipelines:
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp/argocd]

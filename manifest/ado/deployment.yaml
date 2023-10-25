@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: preethiagnes/ado:20231025.11
+          image: preethiagnes/ado:20231025.14
           ports:
             - containerPort: 80  # Adjust the container port as needed
           env:

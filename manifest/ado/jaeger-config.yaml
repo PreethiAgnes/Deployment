@@ -1,15 +1,16 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: jaeger-agent-config
-  namespace: argocd
-collector:
-  zipkin:
-    http_port: 9411
-  jaeger-thrift-http:
-    host-port: jaeger-agent.argocd.svc.cluster.local:14268
-  log-level: info
 agent:
   hostname: jaeger-agent
   log-level: info
-
+apiVersion: v1
+collector:
+  jaeger-thrift-http:
+    host-port: 'jaeger-agent.argocd.svc.cluster.local:14268'
+  log-level: info
+  zipkin:
+    http_port: 9411
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: ado
+  name: jaeger-agent-config
+  namespace: argocd

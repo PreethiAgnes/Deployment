@@ -2,8 +2,9 @@ collector:
   zipkin:
     http_port: 9411
   jaeger-thrift-http:
-    host-port: 0.0.0.0:14268
+    host-port: jaeger-agent.argocd.svc.cluster.local:14268
   log-level: info
 agent:
   hostname: jaeger-agent
   log-level: info
+

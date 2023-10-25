@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-agent-config
+  namespace: argocd
 collector:
   zipkin:
     http_port: 9411

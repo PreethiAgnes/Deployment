@@ -25,9 +25,6 @@ spec:
               value: "http://localhost:4317"  # Use the service name and port of the collector
         - name: otel-collector
           image: otel/opentelemetry-collector:latest
-          volumeMounts:
-            - name: collector-config
-              mountPath: /etc/collector
           resources:
             requests:
               memory: "64Mi"

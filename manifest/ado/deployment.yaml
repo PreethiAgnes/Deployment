@@ -35,10 +35,7 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-      volumes:
-        - name: collector-config
-          configMap:
-            name: otel-collector-config
+      
 
 ---
 apiVersion: v1

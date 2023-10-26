@@ -19,7 +19,7 @@ spec:
         - name: my-app
           image: preethiagnes/ado:20231026.1
           ports:
-              containerPort: 8080
+            - containerPort: 8080
           env:
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "http://localhost:4317"  # Use the service name and port of the collector
@@ -29,10 +29,10 @@ spec:
             - name: collector-config
               mountPath: /etc/collector
           resources:
-           requests:
+            requests:
               memory: "64Mi"
               cpu: "250m"
-           limits:
+            limits:
               memory: "128Mi"
               cpu: "500m"
       volumes:

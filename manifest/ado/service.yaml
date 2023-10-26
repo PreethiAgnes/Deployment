@@ -6,7 +6,7 @@ spec:
   selector:
     app: my-app
   ports:
-  - name: name-of-service-port
+  - name: http-web-svc
     protocol: TCP
     port: 80
     targetPort: http-web-svc

@@ -20,7 +20,7 @@ spec:
     exporters:
       logging:
       otlp:
-        endpoint: "otel-collector-collector.argocd:4317"
+        endpoint: "otel-collector.argocd:4317"
         tls:
           insecure: true
       jaeger:

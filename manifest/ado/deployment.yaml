@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-app-deployment
 spec:
-  replicas: 1  # Adjust the number of replicas as needed
+  replicas: 1
   selector:
     matchLabels:
       app: my-app
@@ -16,10 +16,17 @@ spec:
         - name: my-app
           image: preethiagnes/ado:20231025.14
           ports:
-            - containerPort: 80  # Adjust the container port as needed
+            - containerPort: 80
           env:
-            - name: OTEL_CONFIG
-              valueFrom:
-                configMapKeyRef:
-                  name: otel-collector-config
-                  key: otel.yaml
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "argocd-opentelemetry-collector:55680"  # This should match your collector's service name and port
+
+        - name: otel-collector
+          image: otel/opentelemetry-collector:latest
+          volumeMounts:
+            - name: collector-config
+              mountPath: /etc/collector
+      volumes:
+        - name: collector-config
+          configMap:
+            name: otel-collector-config # Name of the ConfigMap containing your collector configuration

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment
+  name: my-app
 spec:
   replicas: 1
   selector:
@@ -11,22 +11,44 @@ spec:
     metadata:
       labels:
         app: my-app
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
     spec:
+      terminationGracePeriodSeconds: 5
       containers:
         - name: my-app
           image: preethiagnes/ado:20231026.1
           ports:
-            - name: http-web-svc
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "otel-collector:4317"  # Use the service name and port of the collector
+              value: "http://localhost:4317"  # Use the service name and port of the collector
         - name: otel-collector
           image: otel/opentelemetry-collector:latest
           volumeMounts:
             - name: collector-config
               mountPath: /etc/collector
+          resources:
+           requests:
+              memory: "64Mi"
+              cpu: "250m"
+           limits:
+              memory: "128Mi"
+              cpu: "500m"
       volumes:
         - name: collector-config
           configMap:
             name: otel-collector-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+spec:
+  type: ClusterIP
+  selector:
+    app: my-app
+  ports:
+  - name: app
+    port: 8080

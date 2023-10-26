@@ -21,7 +21,7 @@ spec:
               containerPort: 80
           env:
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "argocd-opentelemetry-collector:55680"  # This should match your collector's service name and port
+              value: "127.0.0.1:8080"  # This should match your collector's service name and port
 
         - name: otel-collector
           image: otel/opentelemetry-collector:latest

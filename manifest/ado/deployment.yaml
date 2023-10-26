@@ -12,17 +12,15 @@ spec:
       labels:
         app: my-app
     spec:
-      hostNetwork: true
       containers:
         - name: my-app
           image: preethiagnes/ado:20231026.1
           ports:
-            - name: http-web-svc  # Ensure this matches the name in your service
+            - name: http-web-svc
               containerPort: 80
           env:
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "127.0.0.1:8080"  # This should match your collector's service name and port
-
+              value: "otel-collector:4317"  # Use the service name and port of the collector
         - name: otel-collector
           image: otel/opentelemetry-collector:latest
           volumeMounts:
@@ -31,4 +29,4 @@ spec:
       volumes:
         - name: collector-config
           configMap:
-            name: otel-collector-config # Name of the ConfigMap containing your collector configuration
+            name: otel-collector-config

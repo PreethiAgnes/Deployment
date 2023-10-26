@@ -16,7 +16,8 @@ spec:
         - name: my-app
           image: preethiagnes/ado:20231025.14
           ports:
-            - containerPort: 80
+            - name: http-web-svc  # Ensure this matches the name in your service
+              containerPort: 80
           env:
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "argocd-opentelemetry-collector:55680"  # This should match your collector's service name and port

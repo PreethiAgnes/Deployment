@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-opentelemetry-collector
+  namespace: argocd  # Use the appropriate namespace
+spec:
+  selector:
+    app: otel-collector
+  ports:
+    - name: otel
+      port: 55680  # Port to access the collector
+      targetPort: 4317  # The collector container's port
+  type: ClusterIP  # Use the appropriate service type

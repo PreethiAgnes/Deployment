@@ -12,6 +12,7 @@ spec:
       labels:
         app: my-app
     spec:
+      hostNetwork: true
       containers:
         - name: my-app
           image: preethiagnes/ado:20231025.14

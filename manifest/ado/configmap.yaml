@@ -16,10 +16,9 @@ data:
     exporters:
       logging:
         loglevel: debug
-      otlp:
-        endpoint: tempo:4317
-        tls:
-          insecure: true
+      jaeger:
+        endpoint: "http://localhost:16686"
+        insecure: true
 
     service:
       pipelines:

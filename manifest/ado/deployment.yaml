@@ -15,7 +15,7 @@ spec:
       hostNetwork: true
       containers:
         - name: my-app
-          image: preethiagnes/ado:20231025.14
+          image: preethiagnes/ado:20231026.1
           ports:
             - name: http-web-svc  # Ensure this matches the name in your service
               containerPort: 80

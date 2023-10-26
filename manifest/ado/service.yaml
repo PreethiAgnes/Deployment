@@ -4,7 +4,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: app
+    app: my-app
   ports:
   - name: name-of-service-port
     protocol: TCP

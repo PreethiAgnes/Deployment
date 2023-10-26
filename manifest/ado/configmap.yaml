@@ -7,7 +7,7 @@ data:
   otel.yaml: |
     receivers:
       otlp:
-        endpoint: "127.0.0.1:8080"
+        endpoint: "otel-collector:4317"
     processors:
       batch:
         timeout: 1s

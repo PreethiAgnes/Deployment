@@ -1,33 +1,33 @@
 apiVersion: v1
-kind: OpenTelemetryCollector
+kind: ConfigMap
 metadata:
-  name: otel-collector
-spec:
-  mode: deployment
-  hostNetwork: true
-  config: |
+  name: otel-collector-config
+  namespace: argocd
+data:
+  otel.yaml: |
     receivers:
       otlp:
-        protocols:
-          grpc:
-          http:
+        endpoint: "0.0.0.0:5555"
     processors:
+      batch:
+        timeout: 1s
+        send_batch_size: 1024
+
     exporters:
       logging:
-      otlp:
+        loglevel: debug
       jaeger:
         endpoint: "http://localhost:16686"
-        tls: 
-          insecure: "true"
+        insecure: true
+
     service:
       pipelines:
-        traces:
-          receivers: [otlp]
-          processors: []
-          exporters: [jaeger,otlp]
         metrics:
           receivers: [otlp]
-          exporters: [otlp]
-        logs:
+          exporters: [logging]
+        traces:
           receivers: [otlp]
-          exporters: [otlp]
+          exporters: [logging, otlp]
+      telemetry:
+        logs:
+          level: debug

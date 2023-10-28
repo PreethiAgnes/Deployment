@@ -31,7 +31,7 @@ spec:
            requests:
              cpu: 200m
              memory: 400Mi
-         ports:
+          ports:
            - containerPort: 4317   #otlp grpc
            - containerPort: 4318   # otlp http
            - containerPort: 55679  # zpages
